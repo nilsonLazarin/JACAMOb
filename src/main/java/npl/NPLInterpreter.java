@@ -22,10 +22,10 @@ import java.util.logging.Logger;
  */
 public class NPLInterpreter implements ToDOM, DynamicFactsProvider {
 
-    private Agent ag = null; // use a Jason agent to store the facts (BB)
-    private Map<String, INorm> regimentedNorms = null; // norms with failure consequence
-    private Map<String, INorm> regulativeNorms = null; // norms with obligation, permission, prohibition consequence
-    private List<ISanctionRule> sanctionRules = null;
+    protected Agent ag = null; // use a Jason agent to store the facts (BB)
+    protected Map<String, INorm> regimentedNorms = null; // norms with failure consequence
+    protected Map<String, INorm> regulativeNorms = null; // norms with obligation, permission, prohibition consequence
+    protected List<ISanctionRule> sanctionRules = null;
 
     protected Object syncTransState = new Object();
 
@@ -34,7 +34,7 @@ public class NPLInterpreter implements ToDOM, DynamicFactsProvider {
     private StateTransitions oblTransitions = null;
 
     //private List<NormInstance> allCreatedNI = new ArrayList<>(); // to avoid to create an NI twice
-    private Set<String> allActivatedNorms = new HashSet<>(); // to avoid to create an NI twice
+    protected Set<String> allActivatedNorms = new HashSet<>(); // to avoid to create an NI twice
 
     protected Notifier notifier;
 
