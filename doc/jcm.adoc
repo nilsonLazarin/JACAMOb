@@ -1,4 +1,4 @@
-= JaCaMo project files (JCM)
+= JaCaMo application files (JCM)
 JaCaMo Team
 :toc: right
 :date: June 2016
@@ -8,7 +8,7 @@ JaCaMo Team
 :icons: font
 :prewrap!:
 
-The configuration of a JaCaMo project is realised in a file with the `.jcm` suffix (jcm stands for JaCaMo).
+The initial configuration of a JaCaMo application is defined in a file with the `.jcm` suffix (jcm stands for JaCaMo).
 
 This file is composed of the following sections:
 
@@ -237,6 +237,7 @@ Example:
               cartago("infrastructure")
               local(pool,4)
               jacamo.platform.AgentWebInspector("false")
+              jacamo.rest.JCMRest("--rest-port 8080")
 ------
 
 Users can add their own platforms by including their class name in the list. Your class must implement the `jacamo.platform.Platform` interface.
@@ -244,7 +245,7 @@ Users can add their own platforms by including their class name in the list. You
 
 === Include
 
-A project can import other projects by the keyword `uses`, as in the following example:
+An application can import other applications configuration by the keyword `uses`, as in the following example:
 
 [source,jacamoproject]
 ----
@@ -253,4 +254,4 @@ mas d uses p1, p2 {
 }
 ----
 
-In this case, all agents, workspaces and organisations defined in files `p1.jcm` and `p2.jcm` are included in the above project. The `platform` configuration is imported only if nothing about platforms is informed in the project that is *using* another project configuration.
+In this case, all agents, workspaces and organisations defined in files `p1.jcm` and `p2.jcm` are included in the `d` application. The `platform` configuration is imported only if nothing about platforms is informed in the application that is *using* another configuration.
