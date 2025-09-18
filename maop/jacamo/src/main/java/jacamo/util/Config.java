@@ -79,7 +79,9 @@ public class Config extends jason.util.Config {
 
     @Override
     public InputStream getDefaultResource(String templateName) throws IOException {
-        return new URL("jar:file:"+getJaCaMoJar()+"!/templates/"+templateName).openStream();
+        //return new URL("jar:file:"+getJaCaMoJar()+"!/templates/"+templateName).openStream();
+        URL url = getClass().getClassLoader().getResource("templates/" + templateName);
+        return url.openStream();
     }
 
     public synchronized Object put(Object key, Object value) {

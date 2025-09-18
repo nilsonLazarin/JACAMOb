@@ -253,7 +253,9 @@ public class RunJaCaMoProject {
             while (l != null) {
                 l = l.replace("<PROJECT_NAME>", id);
                 l = l.replace("<PROJECT-FILE>", id+".jcm");
-                l = l.replace("<VERSION>", Config.get().getJaCaMoVersion());
+                if(Config.get().getJaCaMoVersion()!=null) {
+                    l = l.replace("<VERSION>", Config.get().getJaCaMoVersion());
+                }
 
                 l = l.replace("<DEPENDENCIES>", sTBS);
 
