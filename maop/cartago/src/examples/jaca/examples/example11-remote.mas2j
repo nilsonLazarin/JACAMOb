@@ -1,0 +1,9 @@
+MAS example11_remote {
+
+    environment: jaca.CartagoEnvironment
+
+    agents:  
+   	voyager agentArchClass jaca.CAgentArch;
+
+    classpath: "../../../lib/cartago.jar";"../../../lib/jaca.jar";    
+}

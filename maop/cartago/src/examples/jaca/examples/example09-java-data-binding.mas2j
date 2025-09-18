@@ -1,0 +1,9 @@
+MAS example09_java_data_binding {
+
+    environment: jaca.CartagoEnvironment
+
+    agents:  
+   	java_data_binding_tester agentArchClass jaca.CAgentArch;
+
+    classpath: "../../../lib/cartago.jar";"../../../lib/jaca.jar";    
+}

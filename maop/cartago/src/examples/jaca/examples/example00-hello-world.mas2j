@@ -1,0 +1,11 @@
+MAS example00_hello_world {
+   
+    environment: jaca.CartagoEnvironment
+    
+    agents:  
+
+    hello_agent agentArchClass jaca.CAgentArch;
+
+    // classpath: "../../../lib/cartago.jar";"../../../lib/jaca.jar";    
+
+}

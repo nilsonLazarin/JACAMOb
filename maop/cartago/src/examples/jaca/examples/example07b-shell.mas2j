@@ -1,0 +1,9 @@
+MAS example07b_shell {
+
+    environment: jaca.CartagoEnvironment
+
+    agents:  
+   	shell_user agentArchClass jaca.CAgentArch;
+
+    classpath: "../../../lib/cartago.jar";"../../../lib/jaca.jar";    
+}

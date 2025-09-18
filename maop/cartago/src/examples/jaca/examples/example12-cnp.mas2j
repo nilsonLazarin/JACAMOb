@@ -1,0 +1,10 @@
+MAS example13_cnp {
+
+    environment: jaca.CartagoEnvironment
+
+    agents:     	  
+   	  announcer agentArchClass jaca.CAgentArch;
+   	  bidder    agentArchClass jaca.CAgentArch #5;
+	
+    classpath: "../../../lib/cartago.jar";"../../../lib/jaca.jar";    
+}

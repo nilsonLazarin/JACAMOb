@@ -1,0 +1,9 @@
+MAS example10_workspaces {
+
+    environment: jaca.CartagoEnvironment
+
+    agents:  
+   	wsp_tester agentArchClass jaca.CAgentArch;
+
+    classpath: "../../../lib/cartago.jar";"../../../lib/jaca.jar";    
+}

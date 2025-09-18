@@ -1,0 +1,10 @@
+MAS example07_extcommand {
+
+    environment: jaca.CartagoEnvironment
+
+    agents:  
+   	 	sender agentArchClass jaca.CAgentArch #1;
+    	receiver agentArchClass jaca.CAgentArch #1;
+
+    classpath: "../../../lib/cartago.jar";"../../../lib/jaca.jar";    
+}

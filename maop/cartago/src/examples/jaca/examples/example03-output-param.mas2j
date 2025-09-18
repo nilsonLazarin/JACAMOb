@@ -1,0 +1,9 @@
+MAS example03_output_param {
+
+    environment: jaca.CartagoEnvironment
+
+    agents:  
+   	calc_user agentArchClass jaca.CAgentArch;
+
+    classpath: "../../../lib/cartago.jar";"../../../lib/jaca.jar";    
+}

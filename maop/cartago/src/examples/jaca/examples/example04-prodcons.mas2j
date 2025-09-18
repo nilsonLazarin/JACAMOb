@@ -1,0 +1,10 @@
+MAS example04_prodcons {
+
+    environment: jaca.CartagoEnvironment
+
+    agents:  
+   	 	producer agentArchClass jaca.CAgentArch #2;
+    	consumer agentArchClass jaca.CAgentArch #3;
+
+    classpath: "../../../lib/cartago.jar";"../../../lib/jaca.jar";    
+}

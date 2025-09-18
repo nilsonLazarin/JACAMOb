@@ -1,0 +1,10 @@
+MAS example02_action_failure {
+
+    environment: jaca.CartagoEnvironment
+
+    agents:  
+   	 	user2 agentArchClass jaca.CAgentArch #1;
+    	observer agentArchClass jaca.CAgentArch #1;
+
+    classpath: "../../../lib/cartago.jar";"../../../lib/jaca.jar";    
+}
