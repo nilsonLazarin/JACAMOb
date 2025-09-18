@@ -1,0 +1,16 @@
+/*
+
+test normative board creation and use when linking a group to a scheme
+
+expected result:
+
+paper finished
+
+*/
+
+mas t2 {
+
+    agent ag2
+
+}
+

@@ -1,0 +1,22 @@
+= Moise
+
+Moise is an organisational platform for MultiAgent Systems based on notions like roles, groups, and missions. It enables an MAS to have an explicit specification of its organisation. This specification is to be used both by the agents to reason about their organisation and by an organisation platform that enforces that the agents follow the specification.
+
+Some papers describing Moise are available in the folder https://github.com/moise-lang/moise/tree/master/doc/publications[publications].
+
+https://moise-lang.github.io[Moise Web Site]
+
+== Installation
+
+    git clone https://github.com/moise-lang/moise.git
+    cd moise
+    ./gradlew build
+
+A simple demo can be seen with
+
+    ./gradlew tutorialOS
+
+More examples of Moise in use are available in https://github.com/jacamo-lang/jacamo/tree/master/examples[JaCaMo examples].
+
+---
+Developed by Jomi F. Hubner, Jaime S. Sichman and Olivier Boissier.

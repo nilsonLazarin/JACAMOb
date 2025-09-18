@@ -1,0 +1,243 @@
+/*
+   Moise Gradle file
+
+*/
+
+defaultTasks 'jar'
+
+apply plugin: 'java-library'
+apply plugin: 'maven-publish'
+apply plugin: 'eclipse'
+
+version '1.2-SNAPSHOT'
+group   'org.jacamo'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+            srcDir 'examples/tutorial'
+        }
+    }
+}
+
+
+repositories {
+    mavenCentral()
+
+    maven { url "https://raw.githubusercontent.com/jacamo-lang/mvn-repo/master" }
+    maven { url 'https://repo.gradle.org/gradle/libs-releases' }
+    //maven { url "http://jacamo.sourceforge.net/maven2" }
+}
+
+/*configurations {
+    umljavadoc  // see http://www.umlgraph.org/doc/indexw.html
+}*/
+
+dependencies {
+    api('org.jason:jason:3.1') {
+     exclude group: 'net.sf.ingenias', module: 'jade'
+    }
+    api('org.jacamo:npl:0.6.1')  {  transitive = false  }
+    api('org.jacamo:cartago:3.1') {  transitive = false  }
+    api('org.jacamo:jaca:3.1') {  transitive = false  }
+
+    testImplementation('junit:junit:4.12')
+
+    api('guru.nidi:graphviz-java:0.7.0') {
+     exclude group: 'xml-apis', module: 'xml-apis'
+     exclude group: 'xml-apis', module: 'xml-apis-ext'
+    }
+
+    //umljavadoc 'org.umlgraph:umlgraph:5.6'
+
+    // used in cartago web infrastructure
+    implementation "io.vertx:vertx-core:3.7.0"
+    implementation "io.vertx:vertx-sync:3.7.0"
+    implementation "io.vertx:vertx-unit:3.7.0"
+    implementation "io.vertx:vertx-web:3.7.0"
+    implementation "io.vertx:vertx-web-client:3.7.0"
+    implementation "com.fasterxml.jackson.core:jackson-databind:2.9.8"
+}
+
+jar {
+    archiveBaseName = 'moise'
+    duplicatesStrategy = 'include'
+}
+
+clean {
+    delete 'bin'
+    delete 'doc/api'
+    delete 'test.xml'
+}
+
+/* // not supported anymore
+task intsim (type: JavaExec, dependsOn: 'jar') {
+    description 'runs an interactive simulation of some organisation'
+    mainClass = 'jason.infra.local.RunLocalMAS'
+    args 'org-simulator.mas2j'
+    classpath sourceSets.main.runtimeClasspath
+    workingDir project.projectDir.absolutePath + '/examples/sim'
+}
+
+task sim (type: JavaExec, dependsOn: 'jar') {
+    description 'runs a program that simulates some dynamics of an organisation'
+    mainClass = 'ora4mas.nopl.simulator.ConsoleSimulator'
+    classpath sourceSets.main.runtimeClasspath
+}
+*/
+
+
+task tutorialOS (type: JavaExec, dependsOn: 'jar') {
+    mainClass = 'TutorialOS'
+    classpath sourceSets.main.runtimeClasspath
+}
+
+task os2dot (type: JavaExec, dependsOn: 'jar') {
+    mainClass = 'moise.tools.os2dotGUI'
+    classpath sourceSets.main.runtimeClasspath
+}
+
+
+//task javadocJar (type: Jar, dependsOn: javadoc) {
+//    archiveBaseName = 'moise'
+//    //classifier = 'javadoc'
+//    duplicatesStrategy = 'include'
+//    from javadoc.destinationDir
+//}
+//
+//task sourceJar (type : Jar) {
+//    archiveBaseName = 'moise'
+//    //classifier = 'sources'
+//    duplicatesStrategy = 'include'
+//    from sourceSets.main.allSource
+//}
+
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+            //artifact sourceJar
+            //artifact javadocJar
+            artifactId 'moise'
+        }
+    }
+}
+
+
+task fixTab {
+    ant.fixcrlf(eol: 'lf',  includes: '**/*.txt,**/*.bat, **/*.adoc', srcdir: '.')
+    ant.fixcrlf(tab: 'remove', tablength: '4', javafiles: 'true', includes: '**/*.java,**/*.xml,**/*.xsl,**/*.xsd', srcdir: 'src')
+    ant.fixcrlf(tab: 'remove', tablength: '4', javafiles: 'true', includes: '**/*.java,**/*.xml,**/*.xsl,**/*.xsd', srcdir: 'examples')
+    ant.fixcrlf(tab: 'remove', tablength: '4', javafiles: 'true', includes: '*.gradle', srcdir: '.')
+}
+
+task renderAsciiDocs(type: Exec) {
+    commandLine 'find', '.', '-name', '*.adoc', '-exec', 'asciidoc-docker', '{}', ';'
+    //commandLine 'find', '.', '-name', '*.adoc', '-exec', 'asciidoctor', '{}', ';'
+}
+
+
+javadoc {
+    options.showAll()
+    options.encoding('UTF-8')
+    options.setUse(true)
+    options.author(true)
+    options.version(true)
+    options.windowTitle('Moise API')
+    options.docTitle('Moise API')
+    options.footer('<a href=http://moise.sf.net>Moise Site</a>')
+    destinationDir = file("${buildDir}/../doc/api")
+    failOnError = false
+    doFirst {
+        javadoc.title = 'Moise API'
+        javadoc.options.docTitle = javadoc.title
+    }
+}
+
+
+/*
+task javadoc(overwrite: true, dependsOn: compileJava) {
+    setDescription('Generates Javadoc API documentation with UMLGraph diagrams')
+    setGroup(JavaBasePlugin.DOCUMENTATION_GROUP)
+
+    doLast {
+        ant.javadoc(classpath: (configurations.runtime + configurations.compile).asPath,
+                    sourcepath: file('src/main/java'),
+                    packagenames: '*',
+                    destdir: "${docsDir}/../../doc/api",
+                    private: 'true',
+                    docletpath: configurations.umljavadoc.asPath) {
+            doclet(name: 'org.umlgraph.doclet.UmlGraphDoc') {
+                //param(name: '-inferrel')
+                //param(name: '-inferdep')
+                param(name: '-qualify')
+                //param(name: '-T', value: 'svg')
+                param(name: '-postfixpackage')
+                param(name: '-hide', value: 'java.*')
+                //param(name: '-collpackages', value: 'java.util.*')
+                //param(name: '-nodefontsize', value: '9')
+                //param(name: '-nodefontpackagesize', value: '7')
+                //param(name: '-link', value: 'http://java.sun.com/j2se/1.5.0/docs/guide/javadoc/doclet/spec')
+                //param(name: '-link', value: 'http://java.sun.com/j2se/1.5/docs/api')
+            }
+        }
+    }
+}
+*/
+
+
+/*task publishMavenSF(dependsOn: [ 'jar', 'build', 'publishToMavenLocal', 'sourceJar', 'javadocJar']) {
+  doLast {
+    description 'transfer local maven artifact to our maven2 repository at sourceforge'
+
+    def wdir = System.getProperty("user.home")+'/.m2/repository/org/jacamo/moise'
+    def tdir = 'jomifred,jacamo@web.sf.net:/home/project-web/jacamo/htdocs/maven2/org/jacamo/moise'
+    exec {
+        commandLine 'scp', '-r', project.version, tdir
+        workingDir wdir
+    }
+    exec {
+        commandLine 'cp', 'maven-metadata-local.xml', 'maven-metadata.xml'
+        workingDir wdir
+    }
+    exec {
+        commandLine 'scp', 'maven-metadata.xml', tdir
+        workingDir wdir
+    }
+  }
+}*/
+
+task publishMavenGitHub(dependsOn: [ 'build', 'publishToMavenLocal']) {
+  doLast {
+    def wdir = System.getProperty("user.home")+'/.m2/repository/org/jacamo/moise'
+    def rdir = '../jacamo-mvn-repo'
+    exec {
+        commandLine 'git', 'pull'
+        workingDir rdir
+    }
+    copy {
+        from wdir
+        into rdir + '/org/jacamo/moise'
+    }
+    exec {
+        commandLine 'git', 'add', '*'
+        workingDir rdir
+    }
+    exec {
+        commandLine 'git', 'commit', '-a', '-m', 'new version of moise '+project.version
+        workingDir rdir
+    }
+    exec {
+        commandLine 'git', 'push'
+        workingDir rdir
+    }
+  }
+}

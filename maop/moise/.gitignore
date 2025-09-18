@@ -1,0 +1,46 @@
+.vscode
+
+.idea
+.vscode
+doc/index.html
+bin
+build
+
+APDescription.txt
+MTPs-Main-Container.txt
+
+mas.log
+
+examples/performance/case1/profiling*
+examples/writePaper/wp-gen.npl
+src/test/jcm/groupwithoutrole.npl
+src/test/jcm/dyn-scheme/x.xml
+
+.stop___MAS
+.gradle
+.settings
+.classpath
+.project
+.DS_Store
+test.xml
+
+*~
+*.class
+*.log
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.war
+*.ear
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+doc/ora4mas/readme.html
+doc/ora4mas/index.html
+doc/api
+readme.html
+release-notes.html
+examples/writePaper/agents/e_r_r_o_r.txt
