@@ -15,11 +15,11 @@
 mas minimumJaCaMoProject {
 
     agent bob: sample_agent.asl {
-      focus: w.c1 
+        focus: w.c1
     }
 
     workspace w {
-      artifact c1: example.Counter(3) 
+      artifact c1: example.Counter(3)
     }
 
     organisation o: org.xml {

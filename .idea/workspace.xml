@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="JACAMOb:jar" />
+      <artifact name="JACAMObLaucher:jar" />
+      <artifact name="JACAMObRUNjcmPROJECT:jar" />
     </artifacts-to-build>
   </component>
   <component name="AutoImportSettings">
@@ -10,10 +11,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0dec0aa4-58dc-40b0-9fdb-139190be86f4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/JACAMObRUNjcmPROJECT_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/JACAMOb_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/JACAMObLaucher_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maop/cartago/src/main/java/cartago/Workspace.java" beforeDir="false" afterPath="$PROJECT_DIR$/maop/cartago/src/main/java/cartago/Workspace.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maop/jacamo/src/main/java/jacamo/infra/JaCaMoLauncher.java" beforeDir="false" afterPath="$PROJECT_DIR$/maop/jacamo/src/main/java/jacamo/infra/JaCaMoLauncher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maop/jacamo/src/main/resources/templates/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/maop/jacamo/src/main/resources/templates/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/scripts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/test/helloJaCaMo/.gradle/8.10/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/test/helloJaCaMo/.gradle/8.10/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/helloJaCaMo/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/test/helloJaCaMo/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/helloJaCaMo/logging.properties" beforeDir="false" afterPath="$PROJECT_DIR$/test/helloJaCaMo/logging.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/minimumJaCaMoProject/logging.properties" beforeDir="false" afterPath="$PROJECT_DIR$/test/minimumJaCaMoProject/logging.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/minimumJaCaMoProject/minimumJaCaMoProject.jcm" beforeDir="false" afterPath="$PROJECT_DIR$/test/minimumJaCaMoProject/minimumJaCaMoProject.jcm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/minimumJaCaMoProject/src/agt/sample_agent.asl" beforeDir="false" afterPath="$PROJECT_DIR$/test/minimumJaCaMoProject/src/agt/sample_agent.asl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,9 +37,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 8
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="32sNZsStkIDcnX972mRr6SFtAJ0" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -34,12 +48,16 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Application.JaCaMoLauncher.executor": "Run",
+    "Application.Launcher.executor": "Run",
     "Application.RunJaCaMoProject.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "com.intellij.ide.FileNotInSourceRootChecker.no.check": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/nilson/chonGroup/JACAMOb/test/helloJaCaMo",
+    "last_opened_file_path": "/home/nilson/chonGroup/JACAMOb/test/minimumJaCaMoProject",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -51,8 +69,23 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
-    <configuration name="RunJaCaMoProject" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Application.Launcher">
+    <configuration name="Launcher" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="jacamo.infra.JaCaMoLauncher" />
+      <module name="JACAMOb" />
+      <option name="PROGRAM_PARAMETERS" value="minimumJaCaMoProject.jcm" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test/minimumJaCaMoProject" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="jacamo.infra.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Run" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="jacamo.infra.RunJaCaMoProject" />
       <module name="JACAMOb" />
       <option name="PROGRAM_PARAMETERS" value="helloJaCaMo.jcm" />
@@ -67,9 +100,14 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.Launcher" />
+      <item itemvalue="Application.Run" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.RunJaCaMoProject" />
+        <item itemvalue="Application.Launcher" />
+        <item itemvalue="Application.Run" />
       </list>
     </recent_temporary>
   </component>

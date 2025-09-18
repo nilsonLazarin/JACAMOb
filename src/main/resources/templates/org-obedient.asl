@@ -1,0 +1,1 @@
+../../../../maop/jacamo/src/main/resources/templates/org-obedient.asl

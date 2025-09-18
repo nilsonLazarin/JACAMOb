@@ -835,17 +835,59 @@ public class Workspace {
 		}
 	}
 
-	private Artifact makeArtifact(String template) throws UnknownArtifactTemplateException {
-			synchronized (artifactFactories){
-				for (ArtifactFactory factory: artifactFactories){
+	/*private Artifact makeArtifact(String template) throws UnknownArtifactTemplateException {
+		synchronized (artifactFactories){
+			for (ArtifactFactory factory: artifactFactories){
+				try {
+					System.out.println("Creating artifact "+template);
+					return factory.createArtifact(template);
+				} catch (Exception ex){
+					System.out.println("Failed to create artifact " + template);
+                }
+
+				// Instala TCCL que aponta para target/env-classes e tenta de novo
+				group.chon.jacamoB.EnvCompilerLite.ensureEnvClassLoaderInstalled();
+
+				for (ArtifactFactory factory2 : artifactFactories) {
 					try {
-						return factory.createArtifact(template);
-					} catch (Exception ex){
+						System.out.println("Re-trying with EnvClassLoader " + template);
+						return factory2.createArtifact(template);
+					} catch (Exception ex) {
+						System.out.println("Factory falhou (segunda tentativa) para " + template + ": " + ex);
 					}
 				}
 			}
-			throw new UnknownArtifactTemplateException("template: "+template);
+		}
+		// debug opcional: verificar se a classe é carregável pelo TCCL
+		try {
+			var cl = Thread.currentThread().getContextClassLoader();
+			var clsName = template.contains("(") ? template.substring(0, template.indexOf('(')).trim() : template.trim();
+			Class.forName(clsName, true, cl);
+			System.out.println("DEBUG: TCCL consegue carregar " + clsName + " mas os factories não criaram o artifact.");
+		} catch (Throwable t) {
+			System.out.println("DEBUG: TCCL NÃO consegue carregar " + template + " → " + t);
+		}
+		throw new UnknownArtifactTemplateException("template: "+template);
 	}
+	*/
+
+	private Artifact makeArtifact(String template) throws UnknownArtifactTemplateException {
+		synchronized (artifactFactories) {
+			for (ArtifactFactory factory : artifactFactories) {
+				try {
+					//System.out.println("Creating artifact " + template);
+					return factory.createArtifact(template);
+				} catch (Exception ex) {
+					System.out.println("Factory falhou para " + template + ": " + ex);
+				}
+			}
+		}
+
+		// Fallback: carregar via TCCL e instanciar com init(...)
+		//System.out.println("Fallback TCCL para " + template);
+		return makeArtifactCompiling(template);
+	}
+
 
 
 	/**
@@ -1881,6 +1923,119 @@ public class Workspace {
 		}
 	}
 
+	/*LAZARIN INIT*/
+	// helper: converte primitivo -> wrapper para comparação de tipos
+	private static Class<?> wrap(Class<?> t) {
+		if (!t.isPrimitive()) return t;
+		if (t == int.class) return Integer.class;
+		if (t == long.class) return Long.class;
+		if (t == double.class) return Double.class;
+		if (t == float.class) return Float.class;
+		if (t == boolean.class) return Boolean.class;
+		if (t == char.class) return Character.class;
+		if (t == byte.class) return Byte.class;
+		if (t == short.class) return Short.class;
+		return t;
+	}
+
+	// parseia "example.Counter(3, \"x\")" -> [className, args...]
+	private static String classNameOf(String template) {
+		int p = template.indexOf('(');
+		return (p >= 0 ? template.substring(0, p) : template).trim();
+	}
+
+	private static Object[] parseArgs(String template) {
+		int p = template.indexOf('(');
+		if (p < 0 || !template.endsWith(")")) return new Object[0];
+		String inside = template.substring(p + 1, template.length() - 1).trim();
+		if (inside.isEmpty()) return new Object[0];
+
+		// split simples por vírgula (suficiente para casos básicos)
+		String[] toks = inside.split("\\s*,\\s*");
+		Object[] out = new Object[toks.length];
+		for (int i = 0; i < toks.length; i++) {
+			String t = toks[i];
+			if (t.equalsIgnoreCase("true") || t.equalsIgnoreCase("false")) {
+				out[i] = Boolean.valueOf(t);
+			} else if (t.matches("-?\\d+")) {
+				out[i] = Integer.valueOf(t);
+			} else if (t.matches("-?\\d+[lL]")) {
+				out[i] = Long.valueOf(t.substring(0, t.length() - 1));
+			} else if (t.matches("-?\\d*\\.\\d+")) {
+				out[i] = Double.valueOf(t);
+			} else if ((t.startsWith("\"") && t.endsWith("\"")) || (t.startsWith("'") && t.endsWith("'"))) {
+				out[i] = t.substring(1, t.length() - 1);
+			} else {
+				// fallback: string literal sem aspas
+				out[i] = t;
+			}
+		}
+		return out;
+	}
+
+	private static java.lang.reflect.Method pickInit(Class<?> cls, Object[] args) throws NoSuchMethodException {
+		// tenta casar por aridade e tipos atribuíveis
+		for (var m : cls.getMethods()) {
+			if (!m.getName().equals("init")) continue;
+			var ptypes = m.getParameterTypes();
+			if (ptypes.length != args.length) continue;
+			boolean ok = true;
+			for (int i = 0; i < ptypes.length; i++) {
+				if (!wrap(ptypes[i]).isInstance(args[i])) { ok = false; break; }
+			}
+			if (ok) return m;
+		}
+		// se não achou e não há args, permite init() ausente
+		if (args.length == 0) throw new NoSuchMethodException("init sem parâmetros não encontrado");
+		throw new NoSuchMethodException("init com aridade/tipos compatíveis não encontrado");
+	}
+
+	private Artifact makeArtifactCompiling(String template) throws UnknownArtifactTemplateException {
+		try {
+			String clsName = classNameOf(template);
+			Object[] args = parseArgs(template);
+
+			// garantir TCCL instalado (seu método)
+			group.chon.jacamoB.EnvCompilerLite.ensureEnvClassLoaderInstalled();
+
+			ClassLoader cl = Thread.currentThread().getContextClassLoader();
+			Class<?> klass = Class.forName(clsName, true, cl);
+
+			if (!cartago.Artifact.class.isAssignableFrom(klass)) {
+				throw new UnknownArtifactTemplateException("Classe " + clsName + " não estende cartago.Artifact");
+			}else{
+				System.out.println("Classe " + clsName + " estende cartago.Artifact, COMPILANDO...");
+			}
+
+			var ctor = klass.getDeclaredConstructor();
+			ctor.setAccessible(true);
+			cartago.Artifact art = (cartago.Artifact) ctor.newInstance();
+
+			// chamar init(...) se existir
+			try {
+				if (args.length == 0) {
+					// tenta init() vazio; se não existir, tudo bem
+					var m = klass.getMethod("init");
+					m.setAccessible(true);
+					m.invoke(art);
+				} else {
+					var m = pickInit(klass, args);
+					m.setAccessible(true);
+					m.invoke(art, args);
+				}
+			} catch (NoSuchMethodException ignore) {
+				// sem init compatível — alguns artifacts não precisam
+			}
+
+			return art;
+		} catch (UnknownArtifactTemplateException e) {
+			throw e;
+		} catch (Throwable t) {
+			throw new UnknownArtifactTemplateException("template: "+template);
+		}
+	}
+
+	/*LAZARIN END*/
 
 
 	/**

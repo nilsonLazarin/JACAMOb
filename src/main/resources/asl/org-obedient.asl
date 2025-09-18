@@ -1,0 +1,1 @@
+../../../../maop/moise/src/main/resources/asl/org-obedient.asl

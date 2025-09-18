@@ -34,6 +34,10 @@ repositories {
 
 dependencies {
     implementation('org.jacamo:jacamo:<VERSION>')
+
+    // IMPORTED FROM build.gradle JASON PROJECT
+    // to use locally installed jars:
+    implementation fileTree(dir: 'lib', include: '*.jar')
 }
 
 sourceSets {
