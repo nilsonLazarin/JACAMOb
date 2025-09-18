@@ -1,0 +1,194 @@
+= Debugging in JaCaMo
+(for JaCaMo 0.6)
+:toc: right
+:author: JaCaMo Team
+:date: June 2016
+:source-highlighter: coderay
+:coderay-linenums-mode: inline
+:icons: font
+:prewrap!:
+
+
+== Debug tools
+
+By default, three inspectors are launched on a Web Browser when executing a JaCaMo application. The level of information and frequency of update can be managed for each agent, workspace or organisation (see below for details).
+
+Deactivation (resp. activation) of these inspectors can be realised by setting the following property to `false` (resp. `true`) in the file `jacamo.properties` in the application directory:
+
+-----
+startWebMindInspector=false  // Agent inspector
+startWebEnvInspector=false   // Environment inspector
+startWebOrgInspector=false   // Organisation inspector
+-----
+
+=== Logging the overall execution
+JaCaMo uses the http://java.sun.com/j2se/1.5.0/docs/guide/logging/overview.html[Java logging API] to output messages from the multi-agent programs into the execution console (the default console is called MASConsole).
+
+The default configuration file that comes with the JaCaMo distribution _logging.properties_ has comments that
+helps you to customise the kinds of log you can get.
+
+==== Setting the console
+*  Setting the default Jason MAS console:
+----
+handlers = jason.runtime.MASConsoleLogHandler
+----
+*  To use the ConsoleHandler:
+----
+handlers= java.util.logging.ConsoleHandler
+----
+*  To also add the FileHandler, you can add in previous handlers the _java.util.logging.FileHandler_ as follows:
+----
+handlers= java.util.logging.FileHandler, java.util.logging.ConsoleHandler
+----
+==== Setting the logging level
+Setting the default logging level of the MAS application is realized by defining the value of _.level_ (e.g. .level = INFO). Other possible values are :
+
+*  SEVERE (only severe messages)
+*  WARNING (only warnings and severe messages)
+*  INFO (normal output)
+*  FINE (debug level of messages)
+
+==== Setting handler specific properties
+*  Handler parameters
+  **  jason.runtime.MASConsoleLogHandler.level = ALL
+  **  jason.runtime.MASConsoleLogHandler.formatter = jason.runtime.MASConsoleLogFormatter
+*  File handler properties:
+  **  default file output is in project's directory.
+  **  java.util.logging.FileHandler.pattern = log/mas-%g.log
+  **  java.util.logging.FileHandler.limit = 500000
+  **  java.util.logging.FileHandler.count = 10
+  **  java.util.logging.FileHandler.formatter = jason.runtime.MASConsoleLogFormatter
+  **  java.util.logging.FileHandler.formatter = java.util.logging.XMLFormatter
+*  Limitting the message that are printed on the console:
+  **  java.util.logging.ConsoleHandler.level = FINE
+  **  java.util.logging.ConsoleHandler.formatter = jason.runtime.MASConsoleLogFormatter
+*  java.level=OFF
+*  javax.level=OFF
+*  sun.level=OFF
+*  jade.level=OFF
+*  Set one text area for each agent
+  **  jason.runtime.MASConsoleLogHandler.tabbed = true
+  **  jason.runtime.MASConsoleLogHandler.colors = false
+
+==== Examples
+For instance, to output messages both into an XML file and in the console, you only need to set the log handler as:
+----
+handlers = java.util.logging.FileHandler, java.util.logging.ConsoleHandler
+----
+To get only console output (without the MASConsole GUI):
+----
+handlers = java.util.logging.ConsoleHandler
+----
+== Debugging an agent
+
+=== Setting the verbose level of an agent
+The verbosity (value between 0 and 2) is set in the parameter's value _verbose_ used in the configuration of an agent in the .jcm project file. The higher the number, the more information about that agent is printed out in the console. For instance
+---------------------------
+   ...
+   agent bob : ag1.asl {
+     ...
+     verbose: 2
+     ...
+   }
+   ...
+---------------------------
+*  Default is 1 (not 0).
+*  Verbose 1 is for printing out only the actions that agents perform in the environment and the messages exchanged between them.
+*  Verbose 2 is for debugging (it corresponds to the java log level FINE).
+
+=== Logging agents’ mind states
+To start the execution of an agent in the debug mode, use the parameter '_debug_' in the agent definition in .jcm file.
+Options are available to configure the visibility degree of the agent's mind state:
+
+*  Setting where to show the mindstate: in a gui _gui_ , in a browser _web_ (the URL is typically http://localhost:3272) or in a file _file_:
+---------------------------------------------
+// Showing the current mind state in the screen with update each reasoning cycle
+  ...
+  agent bob : agt1.asl {
+     ...
+     debug: mindinspector(gui(cycle,html))
+     ...
+  }
+  ...
+---------------------------------------------
+or
+---------------------------------------------
+// Showing the current mind state in the browser with update each reasoning cycle
+  ...
+  agent bob : agt1.asl {
+     ...
+     debug: mindinspector(web(cycle,html))
+     ...
+  }
+  ...
+---------------------------------------------
+or
+---------------------------------------------
+// Showing the current mind state in a file with update each reasoning cycle
+  ...
+  agent bob : agt1.asl {
+     ...
+     debug: mindinspector(file(cycle,xml,log))
+     ...
+  }
+  ...
+---------------------------------------------
+The last parameter is the name of the directory where files will be stored. Each file corresponds to a sample of the mind. They are XML files with suitable style sheets to be viewed in browsers.
+
+*  Setting up the udpate frequency, use _cycle_ (for each cycle), a number (e.g. 2000) to have an update every 2000 milli-seconds,
+---------------------------------------------
+// Showing the current mind state in the screen with update each reasoning cycle
+  ...
+  agent bob : agt1.asl {
+     ...
+     debug: mindinspector(gui(cycle,html))
+     ...
+  }
+  ...
+---------------------------------------------
+*  Storing all the states in a kind of _history_, add a third argument:
+----------------------------------------------------
+  ...
+  agent bob : agt1.asl {
+     ...
+     debug: mindinspector(gui(cycle,html,history))
+     ...
+  }
+  ...
+----------------------------------------------------
+
+== Debugging the environment
+
+=== Debugging artifacts in workspace
+*  To start the execution of a workspace in a debug mode by displaying the observable properties of the artifacts executing in the workspace, use the parameter 'debug' in the workspace definition in .jcm file. This will display the content of artifact in a GUI and in the browser
+(the URL is typically http://localhost:3273)
+----------------------------------------------------
+  ...
+  workspace wsp1 {
+     ...
+     // starts a debug mode in this workspace for all the artifacts of wsp1
+     debug
+     ...
+  }
+  ...
+----------------------------------------------------
+
+== Debugging an organisation
+*  To start the execution of a group or a scheme in a debug mode by displaying the observable properties of the artifacts executing in the workspace, use the parameter 'debug' in the group or scheme definition in .jcm file. This will create a GUI and also display the content of group or scheme in the browser
+(the URL is typically http://localhost:3271)
+----------------------------------------------------
+  ...
+  group g1 : g1group{
+     ...
+     // starts a debug mode in this group instance
+     debug
+     ...
+  }
+  scheme s1 : s1scheme {
+     ...
+     // starts a debug mode in this scheme instance
+     debug
+     ...
+  }
+  ...
+----------------------------------------------------

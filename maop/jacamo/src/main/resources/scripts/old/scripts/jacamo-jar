@@ -1,0 +1,6 @@
+#!/bin/bash
+
+P=`which "$0"`
+source "`dirname $P`/jacamo-setup"
+
+java -classpath "$JACAMO_HOME/libs/*" jacamo.infra.RunJaCaMoProject $1 jar

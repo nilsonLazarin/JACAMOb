@@ -1,0 +1,257 @@
+= JaCaMo application files (JCM)
+JaCaMo Team
+:toc: right
+:date: June 2016
+:source-highlighter: pygments
+:pygments-style: jacamo
+:pygments-linenums-mode: inline
+:icons: font
+:prewrap!:
+
+The initial configuration of a JaCaMo application is defined in a file with the `.jcm` suffix (jcm stands for JaCaMo).
+
+This file is composed of the following sections:
+
+-  agents configuration
+-  environment configuration
+-  organisations configuration
+-  execution configuration
+
+and looks like as follows:
+
+[source,jacamoproject]
+----
+mas myjacamoapplication {
+
+  // agents configuration
+  ...
+
+  // environment configuration
+  ...
+
+  // organisations configuration
+  ...
+
+  // execution configuration
+  ...
+}
+----
+
+
+
+== Agents configuration
+
+=== Syntax for agents section
+-------------------------
+<agents>    ::= <agent>*
+<agent>     ::= agent <name> [ : <source> ] { <parameter>* }
+<parameter> ::= <id> : <value> ( (, | EOL) <value> ) *
+<id>        ::= beliefs | goals |
+                debug | verbose |
+                ag-class | ag-arch | ag-bb-class | myparameter |
+                instances |
+                join | focus | roles
+-------------------------
+
+=== Example of agents configuration
+
+[source,jacamoproject]
+----
+agent bob : participant.asl { // if source is omitted, bob.asl will be used by default
+
+      // initial beliefs
+      beliefs:     p("this is a condition",15000)
+                   friend(alice)
+      // initial goals
+      goals:       start, go(home)
+
+      // debug options
+      debug:       mindinspector(gui(2000,html,history))   // starts the mind inspector for the agent
+      // verbose level: 0 (only agent output), 1 (agent+jason output), 2 (agent+jason+debug output)
+      verbose:     2
+
+      // customisation classes
+      ag-class:    tt.MyAgClass
+      ag-arch:     myp.myArch1
+                   mypk.MyCustomAgArch
+      ag-bb-class: my.Bb
+
+      // user application parameter, used for instance by user custom architectures
+      myparameter: "this is an appl parameter"
+
+      // 5 bobs (called bob1, bob2, ... bob5) will be created.
+      // You can also list the names of the agents. Default value is 1.
+      instances:   5
+
+      // join the workspace w2 (w2 should be defined in environment section)
+      join:        w2
+
+      // focus on artifact a1 in workspace w1 (a1 should be defined in environment section)
+      focus:       w1.a1
+                   ns::w1.a2      // focus on w1.a2 and place observable properties in namespace ns
+
+      // adopt the role r1 in group g2 and role r2 in group g3 (g2, g3, o1 should be defined in organisation section)
+      roles:       r1 in g2, r2 in o1.g3
+}
+----
+
+== Environment configuration
+
+=== Syntax for environment section
+
+------
+<environment> ::= <workspace>*
+<workspace>   ::= workspace <name> { <artifact>* <agents> <debug> }
+<artifact>    ::= artifact  <name> : <type> [ { focused-by: [<namespace> ::] <agents> } ]
+<agents>      ::= agents : <name> ( (, | EOL) <name> )* | "*"   // "*" means all agents
+<debug>       ::= debug
+------
+
+=== Example of environment configuration
+
+[source,jacamoproject]
+----
+workspace w1 {
+     // creates an artifact named c1 as an instance of mylib.Counter initialised with (10)
+     artifact c1: mylib.Counter(10)
+     artifact bll: mylist.BlockList() {
+         focused-by: bob        // bob will focus on this artifact using its default namespace
+                     nn::alice  // alice will focus on this artifact using its nn namespace
+     }
+
+     agents: carlos, marcos     // carlos and marcos will join this workspace
+
+     debug                      // starts a GUI for this workspace
+}
+----
+
+== Organisations configuration
+
+=== Syntax for organisations section
+
+------
+<organisations> ::= <org>*
+<org>           ::= organisation <name> [ : <source> ] { <parameter>* <agents> <group>* <scheme>* }
+<group>         ::= group  <name> : <type> [ { <gparameter>* } ]
+<gparameter>    ::= <gid> : <gvalue> ( (, | EOL) <gvalue> ) *
+<gid>           ::= responsible-for | debug | group | players | owner
+<scheme>        ::= scheme <name> : <type> [ { <sparameter>* } ]
+<sparameter>    ::= <sid> : <svalue> ( (, | EOL) <svalue> ) *
+<sid>           ::= debug | owner
+------
+
+=== Example of organisations configuration
+
+[source,jacamoproject]
+------
+organisation o1 : os.xml {   // os.xml is the file with the organisational specification, if omitted o1.xml is used
+
+      // a group instance g1 based on the group writepaper defined in os.xml
+      group g1: writepaper {
+          // the group will be responsible for the scheme s1
+          responsible-for: s1
+
+          owner: alice // alice is the owner of the group and can manage it
+
+          // bob plays r1 and r2 in group g1, alice plays r1 in g1
+          players: bob r1
+                   bob r2
+                   alice r1
+          // starts a debug GUI for this group
+          debug: inspector_gui(on) // currently the only possible value is "inspector_gui(on)"
+
+          // groups sg2 will be a subgroup of g1
+          group sg2 : t1
+    }
+
+    // another group instance (without particular initialisation)
+    group g2 : writepaper
+
+    // scheme instance identified by wpscheme in os.xml
+    scheme s1 : wpscheme
+}
+------
+
+== Execution configuration
+
+=== Agent source path
+
+The `asl-path` entry sets the folder where `.asl` files are placed. The default configuration follows:
+
+[source,jacamoproject]
+------
+asl-path: ., src/agt, src/agt/inc
+------
+
+=== Organisation source path
+
+The `org-path` entry sets the folder where organisation specifications `.xml` files are placed. The default configuration follows:
+
+[source,jacamoproject]
+------
+org-path: ., src/org
+------
+
+=== Java source path
+
+The `pava-path` entry sets the folder where Java classes `.java` files are placed. The default configuration follows:
+
+[source,jacamoproject]
+------
+java-path: ., src/env, src/agt
+------
+
+=== Java class path
+
+[source,jacamoproject]
+------
+class-path:  lib
+             ../../../code/bin/classes  // reusing artifacts from that directory
+------
+
+
+=== Platform configuration
+
+This section of the file configures the platform(s) used to run the MAS. The most common entries are: `cartago` (for the environment), `local` (for Jason agents), and `jade` (for distributed agents). The parameters for them are listed below.
+
+*  parameters for `cartago`
+   - `infrastructure` (optional): starts the cartago node in the network
+*  parameters for `local`
+   - `pool,X` : where X is the number os threads used to run the agents (more options link:https://github.com/jason-lang/jason/blob/master/doc/tech/concurrency.adoc#synchronous-reasoning-cycle[here])
+*  parameters for `jade`: any parameter we can use for jade.Boot. E.g.:
+   - `jade("-gui -sniffer")`: starts Jade main-container with RMA and Sniffer already running
+   - `jade("-container -host localhost -container-name c2")`: starts a Jade sub-container named `c2`
+
+
+Other possible entries for platform:
+
+* `jacamo.platform.AgentWebInspector("false")`: disable agent http mind inspector
+* `jacamo.platform.EnvironmentWebInspector("false")`: disable environment http inspector
+* `jacamo.platform.OrganisationWebInspector("false")`: disable organisation http inspector
+
+Example:
+
+[source,jacamoproject]
+------
+    platform: jade()
+              cartago("infrastructure")
+              local(pool,4)
+              jacamo.platform.AgentWebInspector("false")
+              jacamo.rest.JCMRest("--rest-port 8080")
+------
+
+Users can add their own platforms by including their class name in the list. Your class must implement the `jacamo.platform.Platform` interface.
+
+
+=== Include
+
+An application can import other applications configuration by the keyword `uses`, as in the following example:
+
+[source,jacamoproject]
+----
+mas d uses p1, p2 {
+  ...
+}
+----
+
+In this case, all agents, workspaces and organisations defined in files `p1.jcm` and `p2.jcm` are included in the `d` application. The `platform` configuration is imported only if nothing about platforms is informed in the application that is *using* another configuration.

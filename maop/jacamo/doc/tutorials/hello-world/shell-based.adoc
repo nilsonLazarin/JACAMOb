@@ -1,0 +1,56 @@
+= JaCaMo projects in the shell command
+for unix users
+:toc: right
+
+== Installation
+
+*outdated* see xref:../../install.adoc[install] instead.
+
+. Download JaCaMo from https://sourceforge.net/projects/jacamo/files/version-0[here] and unzip it.
+
+. Make sure you have `JACAMO_HOME` properly set (this variable points to a directory with  subdirectories `libs` and `scripts` of JaCaMo), then setup the `PATH`:
+
+    export PATH=$JACAMO_HOME/scripts:$PATH
+
+. Ensure you have `JDK_HOME` properly set (this variable points to a Java Development Kit (JDK) directory)
+
+== Development
+
+. Create a new project with
++
+----
+jacamo-new-project ../somewhere/helloworld
+----
+Examples of agent, artifact and organization are placed in the `src` folder.
+
+
+. And run it with
++
+    jacamo ../somewhere/helloworld/helloworld.jcm
+
+
+
+You can also run it using https://gradle.org[Gradle]:
+
+    cd ../somewhere/helloworld
+    ./gradlew -q
+
+
+If you use the https://atom.io[Atom] editor, the following packages provide syntax highlight for AgentSpeak (the Jason language) and JCM projects: https://atom.io/packages/language-jcm[language-jcm] and https://atom.io/packages/language-agentspeak[language-agentspeak].
+
+image:./screens/atom1.png[]
+
+image:./screens/atom2.png[]
+
+== Other scripts
+
+=== jacamo-jar
+
+Creates a single jar file with all resources to run the application
+----
+jacamo-jar some.jcm
+----
+the application can then be run by
+----
+java -jar some.jar
+----

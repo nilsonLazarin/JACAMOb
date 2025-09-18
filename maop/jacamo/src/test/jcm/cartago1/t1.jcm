@@ -1,0 +1,13 @@
+/*
+    This test fails, 
+    bugs in cartago related to leaving a workspace
+*/
+
+mas t1 {
+
+    agent sample_agent
+
+    
+
+}
+
