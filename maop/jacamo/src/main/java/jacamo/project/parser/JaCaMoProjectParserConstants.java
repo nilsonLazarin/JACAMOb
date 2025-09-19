@@ -59,75 +59,79 @@ public interface JaCaMoProjectParserConstants {
   /** RegularExpression Id. */
   int RUNNING = 28;
   /** RegularExpression Id. */
-  int WORKSPACE = 29;
+  int BODY = 29;
   /** RegularExpression Id. */
-  int ARTIFACT = 30;
+  int APPARATUS = 30;
   /** RegularExpression Id. */
-  int FOCUSED = 31;
+  int WORKSPACE = 31;
   /** RegularExpression Id. */
-  int AGENTS = 32;
+  int ARTIFACT = 32;
   /** RegularExpression Id. */
-  int ORG = 33;
+  int FOCUSED = 33;
   /** RegularExpression Id. */
-  int GROUP = 34;
+  int AGENTS = 34;
   /** RegularExpression Id. */
-  int RESPFOR = 35;
+  int ORG = 35;
   /** RegularExpression Id. */
-  int SCHEME = 36;
+  int GROUP = 36;
   /** RegularExpression Id. */
-  int PLAYERS = 37;
+  int RESPFOR = 37;
   /** RegularExpression Id. */
-  int SITUATED = 38;
+  int SCHEME = 38;
   /** RegularExpression Id. */
-  int INST = 39;
+  int PLAYERS = 39;
   /** RegularExpression Id. */
-  int WORKSPACES = 40;
+  int SITUATED = 40;
   /** RegularExpression Id. */
-  int TK_TRUE = 41;
+  int INST = 41;
   /** RegularExpression Id. */
-  int TK_FALSE = 42;
+  int WORKSPACES = 42;
   /** RegularExpression Id. */
-  int TK_NOT = 43;
+  int TK_TRUE = 43;
   /** RegularExpression Id. */
-  int TK_NEG = 44;
+  int TK_FALSE = 44;
   /** RegularExpression Id. */
-  int TK_INTDIV = 45;
+  int TK_NOT = 45;
   /** RegularExpression Id. */
-  int TK_INTMOD = 46;
+  int TK_NEG = 46;
   /** RegularExpression Id. */
-  int TK_BEGIN = 47;
+  int TK_INTDIV = 47;
   /** RegularExpression Id. */
-  int TK_END = 48;
+  int TK_INTMOD = 48;
   /** RegularExpression Id. */
-  int EOL = 49;
+  int TK_BEGIN = 49;
   /** RegularExpression Id. */
-  int IP = 50;
+  int TK_END = 50;
   /** RegularExpression Id. */
-  int INT = 51;
+  int EOL = 51;
   /** RegularExpression Id. */
-  int REAL = 52;
+  int IP = 52;
   /** RegularExpression Id. */
-  int STRING = 53;
+  int INT = 53;
   /** RegularExpression Id. */
-  int AST = 54;
+  int REAL = 54;
   /** RegularExpression Id. */
-  int DOT = 55;
+  int STRING = 55;
   /** RegularExpression Id. */
-  int DOTDOT = 56;
+  int AST = 56;
   /** RegularExpression Id. */
-  int ATOM = 57;
+  int DOT = 57;
   /** RegularExpression Id. */
-  int UNNAMEDVAR = 58;
+  int DOTDOT = 58;
   /** RegularExpression Id. */
-  int CHAR = 59;
+  int ATOM = 59;
   /** RegularExpression Id. */
-  int LETTER = 60;
+  int UNNAMEDVAR = 60;
   /** RegularExpression Id. */
-  int LC_LETTER = 61;
+  int CHAR = 61;
   /** RegularExpression Id. */
-  int UP_LETTER = 62;
+  int LETTER = 62;
   /** RegularExpression Id. */
-  int DIGIT = 63;
+  int LC_LETTER = 63;
+  /** RegularExpression Id. */
+  int UP_LETTER = 64;
+  /** RegularExpression Id. */
+  int DIGIT = 65;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -163,6 +167,8 @@ public interface JaCaMoProjectParserConstants {
     "\"debug\"",
     "\"package\"",
     "\"running\"",
+    "\"body\"",
+    "\"apparatus\"",
     "\"workspace\"",
     "\"artifact\"",
     "\"focused-by\"",

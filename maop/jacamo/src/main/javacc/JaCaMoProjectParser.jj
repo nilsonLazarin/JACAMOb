@@ -100,6 +100,9 @@ TOKEN : {
 |  <RUNNING:     "running">
 
 
+|  <BODY:   "body">
+|  <APPARATUS:    "apparatus">
+
 |  <WORKSPACE:   "workspace">
 |  <ARTIFACT:    "artifact">
 |  <FOCUSED:     "focused-by">
@@ -187,6 +190,8 @@ JaCaMoProject parse(String directory) :           { Token masId; String f = null
   (<EOL>)* "{" (<EOL>)*
 
   (agent())*
+
+  (body())*
 
   (workspace())*
   
@@ -285,6 +290,33 @@ void agent() :              { Token agType; Token agName; Token qty; Token opt; 
                                 }
                              }
                            }
+}
+
+void body() :          { Token t;
+                              JaCaMoBodyParameters bds = new JaCaMoBodyParameters(project);
+                            }
+{
+  <BODY> t = <ATOM>    { bds.setName(t.image); }
+  "{"  (<EOL>)*
+    (
+      apparatus(bds)
+    )*
+  "}" (<EOL>)*
+                            { project.addBody(bds); }
+}
+
+void apparatus(JaCaMoBodyParameters bds) :
+                            { Token t; Token tns; Token a; String ns = null;
+                              ClassParameters cp;
+                            }
+{
+  <APPARATUS>  t = <ATOM> ":"  cp = classDef() { bds.addApparatus(t.image,cp); }
+  ["{"  (<EOL>)*
+
+   "}"
+  ]
+  (<EOL>)*
+                            { project.addBody(bds); }
 }
 
 void workspace() :          { Token t;

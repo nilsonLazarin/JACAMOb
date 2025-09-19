@@ -14,19 +14,8 @@
 
 mas minimumJaCaMoProject {
 
-    agent maria: sample_agent.asl
-
     agent bob: sample_agent.asl {
-            focus: w.c1
-            }
-
-    body bob {
-      apparatus ap : attachApparatus("/dev/USB0")
-      apparatus ap2 : attachApparatus("/dev/USB1")
-    }
-
-    body maria {
-      apparatus c0: attachApparatus(DISCOVERY)
+      focus: w.c1 
     }
 
     workspace w {

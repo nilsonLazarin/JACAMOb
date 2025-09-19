@@ -18,6 +18,7 @@ public class JaCaMoProject extends MAS2JProject implements Serializable {
 
     protected static Logger logger = Logger.getLogger(JaCaMoProject.class.getName());
 
+    protected Map<String,JaCaMoBodyParameters> bodies = new HashMap<>();
     protected Map<String,JaCaMoWorkspaceParameters> workspaces = new HashMap<>();
     protected List<JaCaMoOrgParameters>       orgs       = new ArrayList<>();
     protected List<JaCaMoInstParameters>      insts      = new ArrayList<>();
@@ -204,6 +205,13 @@ public class JaCaMoProject extends MAS2JProject implements Serializable {
         wp.setHost(host);
     }
     */
+
+    public void addBody(JaCaMoBodyParameters b) {
+        bodies.put(b.getName(),b);
+    }
+    public Collection<JaCaMoBodyParameters> getBodies() {
+        return bodies.values();
+    }
 
     public void addWorkspace(JaCaMoWorkspaceParameters w) {
         workspaces.put(w.getName(),w);

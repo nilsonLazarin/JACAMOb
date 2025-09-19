@@ -21,14 +21,14 @@
         </repository>
 
         <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+
+        <repository>
             <id>gradle</id>
             <url>https://repo.gradle.org/gradle/libs-releases</url>
         </repository>
-
-        <!--        <repository>-->
-        <!--            <id>jacamo-repo</id>-->
-        <!--            <url>https://raw.githubusercontent.com/jacamo-lang/mvn-repo/master</url>-->
-        <!--        </repository>-->
     </repositories>
 
 
@@ -100,6 +100,19 @@
             <version>1.7.36</version>
         </dependency>
 
+        <!-- https://github.com/chon-group/Javino -->
+        <dependency>
+            <groupId>com.github.chon-group</groupId>
+            <artifactId>Javino</artifactId>
+            <version>1.6.4</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.scream3r/jssc -->
+        <dependency>
+            <groupId>org.scream3r</groupId>
+            <artifactId>jssc</artifactId>
+            <version>2.8.0</version>
+        </dependency>
 
     </dependencies>
 

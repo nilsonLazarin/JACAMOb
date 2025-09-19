@@ -1,9 +1,12 @@
 package jacamo.infra;
 
+import java.util.Collection;
 import java.util.logging.Level;
 
+import group.chon.Body;
 import jaca.CAgentArch;
 import jacamo.project.JaCaMoAgentParameters;
+import jacamo.project.JaCaMoBodyParameters;
 import jacamo.project.JaCaMoWorkspaceParameters;
 import jason.architecture.AgArch;
 import jason.asSemantics.Intention;
@@ -12,6 +15,7 @@ import jason.asSyntax.Atom;
 import jason.asSyntax.ListTerm;
 import jason.asSyntax.ListTermImpl;
 import jason.asSyntax.Literal;
+import jason.mas2j.ClassParameters;
 import jason.runtime.Settings;
 
 /**
@@ -23,6 +27,8 @@ import jason.runtime.Settings;
  *
  */
 public class JaCaMoAgArch extends AgArch {
+    private Body body;
+
     private static final long serialVersionUID = 1L;
     
     public static Atom jcmAtom = new Atom("jcm");
@@ -120,6 +126,9 @@ public class JaCaMoAgArch extends AgArch {
             if (getTS().getLogger().isLoggable(Level.FINE)) getTS().getLogger().fine("producing goal for initial roles "+lroles);
             getTS().getC().addAchvGoal( ASSyntax.createLiteral(jcmAtom, "initial_roles", lroles, ASSyntax.createNumber(5)), Intention.EmptyInt);
         }
+
+        // CHON
+        createMyBody();
     }
 
     protected CAgentArch getCartagoArch() {
@@ -131,5 +140,28 @@ public class JaCaMoAgArch extends AgArch {
             arch = arch.getNextAgArch();
         }
         return null;
+    }
+
+    public void createMyBody(){
+        System.out.println("Entrou em createMYBody() sou:"+getAgName());
+        Collection<JaCaMoBodyParameters> bodies = JaCaMoLauncher.getJaCaMoRunner().getJaCaMoProject().getBodies();
+
+        for (JaCaMoBodyParameters b : bodies) {
+            if(getAgName().equals(b.getName())){
+                System.out.println("MY BODY");
+                body = new Body(b.getName());
+                System.out.println("Apparatus Count: "+b.getApparatusCount());
+                for (var e : b.getApparatusEntries()) {
+                    String name = e.getKey();
+                    ClassParameters cp = e.getValue();
+                    System.out.println(" - " + name + " -> " + cp);
+                    try {
+                        group.chon.util.ReflectCall.invoke(body,cp.toString());
+                    } catch (Exception ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
+            }
+        }
     }
 }
