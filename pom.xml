@@ -39,11 +39,11 @@
             <version>0.4</version>
         </dependency>
 
-        <dependency>
-            <groupId>npl</groupId>
-            <artifactId>npl</artifactId>
-            <version>0.6</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>npl</groupId>-->
+<!--            <artifactId>npl</artifactId>-->
+<!--            <version>0.6</version>-->
+<!--        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/io.vertx/vertx-core -->
         <dependency>
