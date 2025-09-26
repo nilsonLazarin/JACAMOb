@@ -10,18 +10,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0dec0aa4-58dc-40b0-9fdb-139190be86f4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/maop/npl/src/main/java/npl/parser/ParseException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/maop/npl/src/main/java/npl/parser/SimpleCharStream.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/maop/npl/src/main/java/npl/parser/Token.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/maop/npl/src/main/java/npl/parser/TokenMgrError.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/maop/npl/src/main/java/npl/parser/nplp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/maop/npl/src/main/java/npl/parser/nplpConstants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/maop/npl/src/main/java/npl/parser/nplpTokenManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/npl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/javacc/npl.jj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/artifacts/JACAMOb_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/JACAMOb_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/parser/genParseFiles.sh" beforeDir="false" afterPath="$PROJECT_DIR$/libs/parser/genParseFiles.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/lipermi/lipermi/0.4/lipermi-0.4.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/lipermi/lipermi/0.4/lipermi-0.4.pom" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/npl/npl/0.6/npl-0.6.jar" beforeDir="false" afterPath="$PROJECT_DIR$/libs/old/npl/npl/0.6/npl-0.6.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/npl/npl/0.6/npl-0.6.pom" beforeDir="false" afterPath="$PROJECT_DIR$/libs/old/npl/npl/0.6/npl-0.6.pom" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maop/cartago/src/main/java/cartago/infrastructure/lipermi/AgentBodyProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/maop/cartago/src/main/java/cartago/infrastructure/lipermi/AgentBodyProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maop/cartago/src/main/java/cartago/infrastructure/lipermi/AgentBodyRemote.java" beforeDir="false" afterPath="$PROJECT_DIR$/maop/cartago/src/main/java/cartago/infrastructure/lipermi/AgentBodyRemote.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maop/cartago/src/main/java/cartago/infrastructure/lipermi/CartagoCallbackRemote.java" beforeDir="false" afterPath="$PROJECT_DIR$/maop/cartago/src/main/java/cartago/infrastructure/lipermi/CartagoCallbackRemote.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maop/cartago/src/main/java/cartago/infrastructure/lipermi/CartagoInfrastructureLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/maop/cartago/src/main/java/cartago/infrastructure/lipermi/CartagoInfrastructureLayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maop/cartago/src/main/java/cartago/infrastructure/lipermi/CartagoNodeRemote.java" beforeDir="false" afterPath="$PROJECT_DIR$/maop/cartago/src/main/java/cartago/infrastructure/lipermi/CartagoNodeRemote.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -71,6 +70,11 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/libs/old" />
+    </key>
+  </component>
   <component name="RunManager" selected="Application.Launcher">
     <configuration name="Launcher" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="jacamo.infra.JaCaMoLauncher" />
@@ -141,6 +145,7 @@
       <workItem from="1758649426368" duration="3475000" />
       <workItem from="1758917640109" duration="838000" />
       <workItem from="1758920270787" duration="726000" />
+      <workItem from="1758922006646" duration="809000" />
     </task>
     <servers />
   </component>

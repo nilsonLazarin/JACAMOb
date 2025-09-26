@@ -6,7 +6,7 @@
 
     <groupId>group.chon</groupId>
     <artifactId>JACAMOb</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.1.0</version>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
@@ -15,10 +15,10 @@
     </properties>
 
     <repositories>
-        <repository>
-            <id>project-libs</id>
-            <url>file://${project.basedir}/libs</url>
-        </repository>
+<!--        <repository>-->
+<!--            <id>project-libs</id>-->
+<!--            <url>file://${project.basedir}/libs</url>-->
+<!--        </repository>-->
 
         <repository>
             <id>jitpack.io</id>
@@ -33,11 +33,11 @@
 
 
     <dependencies>
-        <dependency>
-            <groupId>lipermi</groupId>
-            <artifactId>lipermi</artifactId>
-            <version>0.4</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>lipermi</groupId>-->
+<!--            <artifactId>lipermi</artifactId>-->
+<!--            <version>0.4</version>-->
+<!--        </dependency>-->
 
 <!--        <dependency>-->
 <!--            <groupId>npl</groupId>-->

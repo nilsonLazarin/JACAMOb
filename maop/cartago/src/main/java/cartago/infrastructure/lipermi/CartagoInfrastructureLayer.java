@@ -4,9 +4,12 @@ import java.io.IOException;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import lipermi.exception.LipeRMIException;
-import lipermi.handler.CallHandler;
-import lipermi.net.Client;
+//import lipermi.exception.LipeRMIException;
+import net.sf.lipermi.exception.LipeRMIException;
+//import lipermi.handler.CallHandler;
+import net.sf.lipermi.handler.CallHandler;
+//import lipermi.net.Client;
+import net.sf.lipermi.net.Client;
 import cartago.AgentCredential;
 import cartago.AgentId;
 import cartago.ArtifactId;

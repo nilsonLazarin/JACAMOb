@@ -2,7 +2,8 @@ package cartago.infrastructure.lipermi;
 
 import java.io.IOException;
 
-import lipermi.net.Client;
+//import lipermi.net.Client;
+import net.sf.lipermi.net.Client;
 import cartago.AgentId;
 import cartago.ArtifactId;
 import cartago.CartagoException;
