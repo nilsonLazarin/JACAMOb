@@ -1,0 +1,14 @@
+.gradle
+build
+/bin/classes
+*.class
+/bin
+*~
+doc/api
+lib/npl.jar
+.settings
+.classpath
+.project
+.vscode
+.idea
+.DS_Store

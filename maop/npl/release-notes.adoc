@@ -1,0 +1,49 @@
+= Release Notes for NPL
+
+== Version 0.6
+
+- Language and the interpreter support for _sanctions_. See link:../examples/e4.npl[example4] and JaCaMo link:https://github.com/jacamo-lang/jacamo/tree/develop/demos/sanction[demo]. Core ideas:
+* Final state of norm instances (fulfilled, unfulfilled or inactive) may create sanctions
+* Sanctions are produced by sanction-rules, which, based on context, select the proper sanction fact to be created.
+* Sanction fact is a pair (agent, sanction_description).
+* Something else (agents, artifacts, ...) outside NPL is supposed to implement the sanctions. NPL scope is to compute sanction facts.
+
+- Deadline can be written without `now +`. For example, `obligation(bob,true,b(10),1 minute)` that means, 1 minute after the creation of the obligation.
+
+- Support for state based deadlines (besides previous temporal conditions). For example: `norm n1: when -> obligation(who, while, what, full(room))`, in the sense "obliged to something before the room is full".
+
+- API changes:
+* class DeonticModality is renamed to NormInstance
+* class NormFactory is renamed to NPLFactory
+
+== Version 0.5
+
+- stable version for JaCaMo 1.2
+
+== Version 0.4
+
+- minor improvements in the API
+
+== Version 0.3
+
+- both the norm and the unifier used to create an obligation are added as an annotation.
++
+----
+obligation(
+    carol,                                  // who
+    not well_formed(sch1),                  // maintenance condition
+    committed(carol,mColaborator,sch1),     // what
+    1492601349568)                          // deadline
+    [...,norm(n3,[...,["S",sch1],["V",0],["Gr",mypaper]])]. // norm
+----
+the norm was `n3` and variable `S` (from the activation condition) value was `sch1`.
+
+== Version 0.2
+
+- add deontic operators for prohibition and permission
+- move to gradle
+
+== Version 0.1
+
+- initial version of NPL, as published in some papers
+  (see doc/publications)
