@@ -8,13 +8,10 @@ import jaca.CAgentArch;
 import jacamo.project.JaCaMoAgentParameters;
 import jacamo.project.JaCaMoBodyParameters;
 import jacamo.project.JaCaMoWorkspaceParameters;
+import jason.RevisionFailedException;
 import jason.architecture.AgArch;
 import jason.asSemantics.Intention;
-import jason.asSyntax.ASSyntax;
-import jason.asSyntax.Atom;
-import jason.asSyntax.ListTerm;
-import jason.asSyntax.ListTermImpl;
-import jason.asSyntax.Literal;
+import jason.asSyntax.*;
 import jason.mas2j.ClassParameters;
 import jason.runtime.Settings;
 
@@ -27,7 +24,7 @@ import jason.runtime.Settings;
  *
  */
 public class JaCaMoAgArch extends AgArch {
-    private Body body;
+    private Body body = null;
 
     private static final long serialVersionUID = 1L;
     
@@ -142,26 +139,77 @@ public class JaCaMoAgArch extends AgArch {
         return null;
     }
 
+    @Override
+    public Collection<Literal> perceive() {
+        try {
+            removeBeliefsBySource("interoception");
+            removeBeliefsBySource("proprioception");
+            removeBeliefsBySource("exteroception");
+        } catch (RevisionFailedException e) {
+            throw new RuntimeException(e);
+        }
+        if (body != null) {
+                //getTS().getAg().getBB().abolish(ASSyntax.parseLiteral("body(_,_)"));
+           // System.out.println(getTS().getAg().getBB().getNameSpaces().toString());
+
+
+//            var bb = ;
+//            for (Literal b : bb) { // BeliefBase é iterável em versões recentes
+//                var ns = b.getNS(); // pode ser null
+//                if (ns != null && "body".equals(ns.toString())) { // ou ns.getFunctor()
+//                    toRemove.add(b);
+//                }
+//            }
+
+            return body.getPerceptsList();
+
+        }else {
+            return null;
+        }
+    }
+
+    public void removeBeliefsBySource(String source) throws RevisionFailedException {
+        for (Literal belief : getTS().getAg().getBB()) {
+            if (belief.hasAnnot()) {
+                for (Term annotation : belief.getAnnots()) {
+                    if (annotation.isStructure()) {
+                       Structure annot = (Structure) annotation;
+                        if (annot.getFunctor().equals("source") && annot.getTerm(0).equals(Literal.parseLiteral(source))) {
+                            getTS().getAg().delBel(belief);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     public void createMyBody(){
-        System.out.println("Entrou em createMYBody() sou:"+getAgName());
+      //  System.out.println("Entrou em createMYBody() sou:"+getAgName());
         Collection<JaCaMoBodyParameters> bodies = JaCaMoLauncher.getJaCaMoRunner().getJaCaMoProject().getBodies();
 
         for (JaCaMoBodyParameters b : bodies) {
             if(getAgName().equals(b.getName())){
-                System.out.println("MY BODY");
-                body = new Body(b.getName());
-                System.out.println("Apparatus Count: "+b.getApparatusCount());
+               // System.out.println("MY BODY");
+                //this.body = new Body(b.getName());
+                this.body = new Body(b.getName());
+               // System.out.println("Apparatus Count: "+b.getApparatusCount());
                 for (var e : b.getApparatusEntries()) {
                     String name = e.getKey();
                     ClassParameters cp = e.getValue();
-                    System.out.println(" - " + name + " -> " + cp);
+                    //System.out.println(" - " + name + " -> " + cp);
                     try {
                         group.chon.util.ReflectCall.invoke(body,cp.toString());
                     } catch (Exception ex) {
                         throw new RuntimeException(ex);
                     }
                 }
+
             }
         }
+    }
+
+    @Override
+    public void realWorldAct(String CMD){
+        body.act(CMD);
     }
 }

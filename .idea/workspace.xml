@@ -10,12 +10,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0dec0aa4-58dc-40b0-9fdb-139190be86f4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/group/chon/util/EnvCompileArtifact.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/artifacts/JACAMOb_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/JACAMOb_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maop/cartago/src/main/java/cartago/Workspace.java" beforeDir="false" afterPath="$PROJECT_DIR$/maop/cartago/src/main/java/cartago/Workspace.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maop/jacamo/src/main/java/jacamo/infra/JaCaMoLauncher.java" beforeDir="false" afterPath="$PROJECT_DIR$/maop/jacamo/src/main/java/jacamo/infra/JaCaMoLauncher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/group/chon/jacamoB/EnvCompilerLite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/group/chon/util/EnvCompilerLite.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maop/jacamo/src/main/java/jacamo/infra/JaCaMoAgArch.java" beforeDir="false" afterPath="$PROJECT_DIR$/maop/jacamo/src/main/java/jacamo/infra/JaCaMoAgArch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maop/jacamo/src/main/java/jacamo/project/parser/JaCaMoProjectParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/maop/jacamo/src/main/java/jacamo/project/parser/JaCaMoProjectParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maop/jacamo/src/main/java/jacamo/project/parser/ParseException.java" beforeDir="false" afterPath="$PROJECT_DIR$/maop/jacamo/src/main/java/jacamo/project/parser/ParseException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maop/jason/jason-interpreter/src/main/java/jason/architecture/AgArch.java" beforeDir="false" afterPath="$PROJECT_DIR$/maop/jason/jason-interpreter/src/main/java/jason/architecture/AgArch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/group/chon/Apparatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/group/chon/Apparatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/group/chon/Body.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/group/chon/Body.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/minimumJaCaMoProject/minimumJaCaMoProject.jcm" beforeDir="false" afterPath="$PROJECT_DIR$/test/minimumJaCaMoProject/minimumJaCaMoProject.jcm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/minimumJaCaMoProject/src/agt/sample_agent.asl" beforeDir="false" afterPath="$PROJECT_DIR$/test/minimumJaCaMoProject/src/agt/sample_agent.asl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,6 +130,15 @@
       <workItem from="1758205380898" duration="2568000" />
       <workItem from="1758239398909" duration="65000" />
       <workItem from="1758280363235" duration="5713000" />
+      <workItem from="1758311413891" duration="6045000" />
+      <workItem from="1758317654418" duration="1512000" />
+      <workItem from="1758319710154" duration="2555000" />
+      <workItem from="1758562643146" duration="483000" />
+      <workItem from="1758628769036" duration="63000" />
+      <workItem from="1758634856456" duration="1303000" />
+      <workItem from="1758637117005" duration="5344000" />
+      <workItem from="1758649426368" duration="3475000" />
+      <workItem from="1758917640109" duration="838000" />
     </task>
     <servers />
   </component>

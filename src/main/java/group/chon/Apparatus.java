@@ -8,6 +8,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Apparatus {
+    private boolean atuando = false;
+    private boolean percebendo = false;
     private int timeouts=0;
     private String status="on";
     private Instant lastTimeout = Instant.ofEpochSecond(0);
@@ -36,7 +38,7 @@ public class Apparatus {
         this.status=status;
     }
 
-    private String getPort() {
+    public String getPort() {
         return serialPort;
     }
 
@@ -49,17 +51,42 @@ public class Apparatus {
     }
 
     public String getPercepts(){
+        while(this.atuando){
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        this.percebendo = true;
         if(javino.requestData(getPort(),"getPercepts")){
             String percepts = javino.getData();
             if(verify(percepts)){
+                this.percebendo = false;
                 return percepts;
             }
         }
+        this.percebendo = false;
         return null;
     }
 
     public void act(String CMD){
+        while(this.percebendo){
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        this.atuando = true;
         javino.sendCommand(getPort(),CMD);
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        this.atuando = false;
+
     }
 
     private boolean verify(String beliefString){

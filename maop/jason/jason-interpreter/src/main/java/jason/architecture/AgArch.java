@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.*;
 import java.util.logging.Level;
 
+import group.chon.Body;
 import jason.asSemantics.ActionExec;
 import jason.asSemantics.Message;
 import jason.asSemantics.TransitionSystem;
@@ -29,6 +30,7 @@ import jason.runtime.RuntimeServices;
  * overriding some methods.
  */
 public class AgArch implements Comparable<AgArch>, Serializable {
+//    private Body body = null;
 
     private static final long serialVersionUID = 1L;
 
@@ -292,5 +294,21 @@ public class AgArch implements Comparable<AgArch>, Serializable {
             return successor.getStatus();
         else
             return new TreeMap<>();
+    }
+
+//    public void setBody(Body body) {
+//        this.body = body;
+//    }
+//
+//    public Body getBody(){
+//       return this.body;
+//    }
+//
+//    public boolean hasBody(){
+//        return this.body != null;
+//    }
+
+    public void realWorldAct(String ACT){
+
     }
 }

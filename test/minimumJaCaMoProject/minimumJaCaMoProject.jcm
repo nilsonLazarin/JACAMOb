@@ -21,13 +21,13 @@ mas minimumJaCaMoProject {
             }
 
     body bob {
-      apparatus ap : attachApparatus("/dev/USB0")
-      apparatus ap2 : attachApparatus("/dev/USB1")
+        apparatus ap : attachApparatus("/dev/ttyUSB0")
+      //apparatus ap2 : attachApparatus("/dev/ttyUSB1")
     }
 
-    body maria {
-      apparatus c0: attachApparatus(DISCOVERY)
-    }
+    /*body maria {
+      apparatus c0: attachApparatus("/dev/ttyACM0")
+    }*/
 
     workspace w {
       artifact c1: example.Counter(3) 

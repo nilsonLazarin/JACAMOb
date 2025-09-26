@@ -3,8 +3,17 @@ package group.chon;
 import jssc.SerialPortList;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import jason.asSyntax.Literal;
+import java.util.Collection;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static jason.asSyntax.Literal.parseLiteral;
 
 public class Body {
+    Logger logger;
     String[] apparatusAvailables;
     List<String> apparatusAttached = new ArrayList<>();
     Integer apparatusAvailablesInt = 0;
@@ -18,6 +27,7 @@ public class Body {
     public Body(String bodyName) {
         this();
         this.bodyName = bodyName;
+        this.logger = Logger.getLogger(bodyName);
     }
 
 //    public Body(Mode mode) {
@@ -57,13 +67,33 @@ public class Body {
 //        }
 //    }
 
-    public String getPercepts(){
+    public List<Literal> getPerceptsList() {
+        List<Literal> jPercept = new ArrayList<Literal>();
+        // separa em ';' tolerando espaços antes/depois
+        String[] perception = getPercepts().split("\\s*;\\s*");
+        for (String p : perception) {
+            if (p == null) continue;
+            String t = p.trim();
+            if (t.isEmpty()) continue; // ignora último vazio por causa do ';' final
+            try {
+                jPercept.add(parseLiteral("mybody::"+normalizeSourceTag(t)));
+                //getTS().getAg().getBB().add(Literal.parseLiteral(rwPercepts.replace("[e]","[source(exteroception)]")));
+            } catch (Exception e) {
+                logger.log(Level.WARNING, "Parse error when parsing "+t);
+            }
+        }
+        return jPercept;
+    }
+
+
+
+    private String getPercepts(){
         String percepts = "";
         for(int i = 0; i < apparatusAttached.size(); i++){
             if(apparatus[i].isOk()){
                 percepts += apparatus[i].getPercepts();
             }else{
-
+                logger.log(Level.SEVERE,"Apparatus ["+apparatusAttached.get(i).toString()+"] not OK");
             }
         }
         return percepts;
@@ -72,6 +102,7 @@ public class Body {
     public void act(String CMD){
         for(int i = 0; i < apparatusAttached.size(); i++){
             apparatus[i].act(CMD);
+            logger.log(Level.SEVERE,"[body] actinging "+CMD+" in "+apparatus[i].getPort());
         }
     }
 
@@ -94,4 +125,30 @@ public class Body {
         this.apparatusAvailables = portNames;
         return portNames;
     }
+
+    public static String normalizeSourceTag(String s) {
+
+        // já está no formato [source(...)]? (case-insensitive, espaços tolerados)
+        if (s.matches("(?i).*\\[\\s*source\\s*\\(.*\\)\\s*]\\s*$")) {
+            return s;
+        }
+
+        // separa "head" e o conteúdo opcional dos colchetes
+        Matcher m = Pattern.compile("^\\s*(.*?)\\s*(?:\\[(.*?)\\])?\\s*$").matcher(s);
+        if (!m.matches()) {
+            // fallback: se não casar, adiciona default
+            return s + "[source(interoception)]";
+        }
+
+        String head = m.group(1).trim();
+        String tag  = m.group(2) == null ? "" : m.group(2).trim();
+
+        String src;
+        if (tag.equalsIgnoreCase("e"))      src = "exteroception";
+        else if (tag.equalsIgnoreCase("p")) src = "proprioception";
+        else                                src = "interoception"; // inclui [i] e sem colchetes
+
+        return head + "[source(" + src + ")]";
+    }
+
 }
