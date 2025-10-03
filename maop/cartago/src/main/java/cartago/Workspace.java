@@ -44,7 +44,7 @@ import cartago.events.ObsArtListChangedEvent;
 import cartago.security.IWorkspaceSecurityManager;
 import cartago.security.NullSecurityManager;
 import cartago.security.SecurityException;
-import group.chon.util.EnvCompileArtifact;
+import neck.util.CompileArtifact;
 
 
 /**
@@ -843,7 +843,7 @@ public class Workspace {
 						return factory.createArtifact(template);
 					} catch (Exception ex){
 						try{
-							EnvCompileArtifact env = new EnvCompileArtifact();
+							CompileArtifact env = new CompileArtifact();
 							return env.makeArtifactCompiling(template);
 						}catch (Exception ex2){
 							ex2.printStackTrace();

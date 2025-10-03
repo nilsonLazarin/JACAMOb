@@ -3,7 +3,10 @@ package jacamo.infra;
 import java.util.Collection;
 import java.util.logging.Level;
 
-import group.chon.Body;
+import neck.Apparatus;
+import neck.Body;
+import neck.util.CompilerLite;
+import neck.util.ReflectCall;
 import jaca.CAgentArch;
 import jacamo.project.JaCaMoAgentParameters;
 import jacamo.project.JaCaMoBodyParameters;
@@ -141,14 +144,8 @@ public class JaCaMoAgArch extends AgArch {
 
     @Override
     public Collection<Literal> perceive() {
-        try {
-            removeBeliefsBySource("interoception");
-            removeBeliefsBySource("proprioception");
-            removeBeliefsBySource("exteroception");
-        } catch (RevisionFailedException e) {
-            throw new RuntimeException(e);
-        }
         if (body != null) {
+
                 //getTS().getAg().getBB().abolish(ASSyntax.parseLiteral("body(_,_)"));
            // System.out.println(getTS().getAg().getBB().getNameSpaces().toString());
 
@@ -161,29 +158,20 @@ public class JaCaMoAgArch extends AgArch {
 //                }
 //            }
 
-            return body.getPerceptsList();
+            //getTS().getAg().getBB()
+            //return body.getPercepts();
+            body.updatePercepts(getTS());
+            return null;
 
         }else {
             return null;
         }
     }
 
-    public void removeBeliefsBySource(String source) throws RevisionFailedException {
-        for (Literal belief : getTS().getAg().getBB()) {
-            if (belief.hasAnnot()) {
-                for (Term annotation : belief.getAnnots()) {
-                    if (annotation.isStructure()) {
-                       Structure annot = (Structure) annotation;
-                        if (annot.getFunctor().equals("source") && annot.getTerm(0).equals(Literal.parseLiteral(source))) {
-                            getTS().getAg().delBel(belief);
-                        }
-                    }
-                }
-            }
-        }
-    }
+
 
     public void createMyBody(){
+        CompilerLite.ensureEnvClassLoaderInstalled("src/bdy");
       //  System.out.println("Entrou em createMYBody() sou:"+getAgName());
         Collection<JaCaMoBodyParameters> bodies = JaCaMoLauncher.getJaCaMoRunner().getJaCaMoProject().getBodies();
 
@@ -196,9 +184,15 @@ public class JaCaMoAgArch extends AgArch {
                 for (var e : b.getApparatusEntries()) {
                     String name = e.getKey();
                     ClassParameters cp = e.getValue();
-                    //System.out.println(" - " + name + " -> " + cp);
+                    System.out.println(" - " + name + " -> " + cp);
                     try {
-                        group.chon.util.ReflectCall.invoke(body,cp.toString());
+                        //ReflectCall.invoke(body,cp.toString());
+                        Object created = ReflectCall.invoke(body, cp.toString());
+                        if (created instanceof Apparatus) {
+                            //System.out.println("CRIOU APARATUS");
+                            body.attachApparatus((Apparatus) created, name);
+                        }
+
                     } catch (Exception ex) {
                         throw new RuntimeException(ex);
                     }

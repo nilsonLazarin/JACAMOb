@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.*;
 import java.util.logging.Level;
 
-import group.chon.Body;
 import jason.asSemantics.ActionExec;
 import jason.asSemantics.Message;
 import jason.asSemantics.TransitionSystem;

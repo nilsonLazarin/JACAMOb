@@ -10,18 +10,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0dec0aa4-58dc-40b0-9fdb-139190be86f4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/JACAMOb_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/JACAMOb_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/JACAMOb_jar.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/lipermi/lipermi/0.4/lipermi-0.4.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/lipermi/lipermi/0.4/lipermi-0.4.pom" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/npl/npl/0.6/npl-0.6.jar" beforeDir="false" afterPath="$PROJECT_DIR$/libs/old/npl/npl/0.6/npl-0.6.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/npl/npl/0.6/npl-0.6.pom" beforeDir="false" afterPath="$PROJECT_DIR$/libs/old/npl/npl/0.6/npl-0.6.pom" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maop/cartago/src/main/java/cartago/infrastructure/lipermi/AgentBodyProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/maop/cartago/src/main/java/cartago/infrastructure/lipermi/AgentBodyProxy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maop/cartago/src/main/java/cartago/infrastructure/lipermi/AgentBodyRemote.java" beforeDir="false" afterPath="$PROJECT_DIR$/maop/cartago/src/main/java/cartago/infrastructure/lipermi/AgentBodyRemote.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maop/cartago/src/main/java/cartago/infrastructure/lipermi/CartagoCallbackRemote.java" beforeDir="false" afterPath="$PROJECT_DIR$/maop/cartago/src/main/java/cartago/infrastructure/lipermi/CartagoCallbackRemote.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maop/cartago/src/main/java/cartago/infrastructure/lipermi/CartagoInfrastructureLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/maop/cartago/src/main/java/cartago/infrastructure/lipermi/CartagoInfrastructureLayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maop/cartago/src/main/java/cartago/infrastructure/lipermi/CartagoNodeRemote.java" beforeDir="false" afterPath="$PROJECT_DIR$/maop/cartago/src/main/java/cartago/infrastructure/lipermi/CartagoNodeRemote.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maop/cartago/src/main/java/cartago/Workspace.java" beforeDir="false" afterPath="$PROJECT_DIR$/maop/cartago/src/main/java/cartago/Workspace.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maop/jacamo/src/main/java/jacamo/infra/JaCaMoAgArch.java" beforeDir="false" afterPath="$PROJECT_DIR$/maop/jacamo/src/main/java/jacamo/infra/JaCaMoAgArch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maop/jacamo/src/main/java/jacamo/infra/JaCaMoLauncher.java" beforeDir="false" afterPath="$PROJECT_DIR$/maop/jacamo/src/main/java/jacamo/infra/JaCaMoLauncher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maop/jason/jason-interpreter/src/main/java/jason/architecture/AgArch.java" beforeDir="false" afterPath="$PROJECT_DIR$/maop/jason/jason-interpreter/src/main/java/jason/architecture/AgArch.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/group/chon/Apparatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/group/chon/Body.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/group/chon/util/EnvCompileArtifact.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/group/chon/util/EnvCompilerLite.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/group/chon/util/ReflectCall.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/minimumJaCaMoProject/minimumJaCaMoProject.jcm" beforeDir="false" afterPath="$PROJECT_DIR$/test/minimumJaCaMoProject/minimumJaCaMoProject.jcm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/minimumJaCaMoProject/src/env/example/Counter.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,11 +69,14 @@
     &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.36927223&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.uml&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/test/minimumJaCaMoProject/src/bdy" />
+      <recent name="$PROJECT_DIR$/src/main/java" />
       <recent name="$PROJECT_DIR$/libs/old" />
     </key>
   </component>
@@ -146,6 +151,12 @@
       <workItem from="1758917640109" duration="838000" />
       <workItem from="1758920270787" duration="726000" />
       <workItem from="1758922006646" duration="809000" />
+      <workItem from="1758926344340" duration="1709000" />
+      <workItem from="1758928641370" duration="1655000" />
+      <workItem from="1759436248016" duration="89000" />
+      <workItem from="1759436380344" duration="12162000" />
+      <workItem from="1759495237478" duration="6831000" />
+      <workItem from="1759502583186" duration="1000000" />
     </task>
     <servers />
   </component>
@@ -162,5 +173,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

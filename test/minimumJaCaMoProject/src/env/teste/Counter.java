@@ -1,6 +1,6 @@
 // CArtAgO artifact code for project minimumJaCaMoProject
 
-package example;
+package teste;
 
 import cartago.*;
 

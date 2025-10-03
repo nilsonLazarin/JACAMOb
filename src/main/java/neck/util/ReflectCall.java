@@ -1,4 +1,4 @@
-package group.chon.util;
+package neck.util;
 
 import java.lang.reflect.*;
 import java.util.*;
@@ -6,14 +6,49 @@ import java.util.*;
 public final class ReflectCall {
     private ReflectCall() {}
 
+//    public static Object invoke(Object target, String call) throws Exception {
+//        String name = methodName(call);
+//        List<String> argTokens = parseArgs(call);
+//        Method m = findCompatibleMethod(target.getClass(), name, argTokens);
+//        Object[] args = convertArgs(argTokens, m.getParameterTypes());
+//        m.setAccessible(true);
+//        return m.invoke(target, args);
+//    }
+
     public static Object invoke(Object target, String call) throws Exception {
         String name = methodName(call);
         List<String> argTokens = parseArgs(call);
-        Method m = findCompatibleMethod(target.getClass(), name, argTokens);
-        Object[] args = convertArgs(argTokens, m.getParameterTypes());
-        m.setAccessible(true);
-        return m.invoke(target, args);
+        try {
+            // NOVO: tentar como construtor de classe (FQCN)
+            ////////Class<?> cls = Class.forName(name); // ex.: "classe.do.usuario.que.extende.Apparatus"
+
+            ClassLoader cl = Thread.currentThread().getContextClassLoader();
+            if (cl == null) cl = ReflectCall.class.getClassLoader();
+            Class<?> cls = Class.forName(name, true, cl);
+
+            Constructor<?> ctor = findCompatibleConstructor(cls, argTokens);
+            Object[] args = convertArgs(argTokens, ctor.getParameterTypes());
+            ctor.setAccessible(true);
+            return ctor.newInstance(args);
+        }catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
     }
+
+    private static Constructor<?> findCompatibleConstructor(Class<?> cls, List<String> argTokens)
+            throws NoSuchMethodException {
+        Constructor<?> best = null;
+        int n = argTokens.size();
+        for (Constructor<?> c : cls.getConstructors()) {
+            Class<?>[] pt = c.getParameterTypes();
+            if (pt.length != n) continue;
+            if (canConvertAll(argTokens, pt)) { best = c; break; }
+        }
+        if (best == null) throw new NoSuchMethodException(
+                "Construtor compatível não encontrado: " + cls.getName() + "/" + n);
+        return best;
+    }
+
 
     private static String methodName(String call) {
         int p = call.indexOf('(');

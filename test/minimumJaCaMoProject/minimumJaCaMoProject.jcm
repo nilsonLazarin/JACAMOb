@@ -21,8 +21,8 @@ mas minimumJaCaMoProject {
             }
 
     body bob {
-        apparatus ap : attachApparatus("/dev/ttyUSB0")
-      //apparatus ap2 : attachApparatus("/dev/ttyUSB1")
+      apparatus ap123 : custom.MyCustomApparatusImplementation("/dev/ttyUSB0")
+      apparatus ap111 : custom.MyCustomApparatusImplementation("/dev/ttyUSB1")
     }
 
     /*body maria {
@@ -30,7 +30,7 @@ mas minimumJaCaMoProject {
     }*/
 
     workspace w {
-      artifact c1: example.Counter(3) 
+      artifact c1: teste.Counter(3)
     }
 
     organisation o: org.xml {

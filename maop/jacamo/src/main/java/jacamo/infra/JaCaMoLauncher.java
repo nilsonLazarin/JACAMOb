@@ -1,6 +1,5 @@
 package jacamo.infra;
 
-import jaca.CAgentArch;
 import jacamo.platform.*;
 import jacamo.project.JaCaMoProject;
 import jacamo.project.parser.JaCaMoProjectParser;
@@ -62,6 +61,7 @@ public class JaCaMoLauncher extends RunLocalMAS {
                 System.exit(0);
             }
         }
+
 
         logger = Logger.getLogger(JaCaMoLauncher.class.getName());
         JaCaMoLauncher r = new JaCaMoLauncher();

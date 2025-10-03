@@ -1,4 +1,4 @@
-package group.chon.util;
+package neck.util;
 
 import cartago.Artifact;
 import cartago.UnknownArtifactTemplateException;
@@ -6,7 +6,7 @@ import cartago.UnknownArtifactTemplateException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class EnvCompileArtifact {
+public class CompileArtifact {
     Logger logger = Logger.getLogger("CHON");
     // helper: converte primitivo -> wrapper para comparação de tipos
     private static Class<?> wrap(Class<?> t) {
@@ -76,7 +76,7 @@ public class EnvCompileArtifact {
 
     public Artifact makeArtifactCompiling(String template) throws UnknownArtifactTemplateException {
         try {
-            EnvCompilerLite.ensureEnvClassLoaderInstalled("src"+System.getProperty("file.separator")+"env");
+            CompilerLite.ensureEnvClassLoaderInstalled("src"+System.getProperty("file.separator")+"env");
             String clsName = classNameOf(template);
             Object[] args = parseArgs(template);
 
